@@ -66,46 +66,69 @@ st.markdown("""
 # GEMINI CONFIGURATION
 # -----------------------------------------
 
+
 def get_api_key():
-    """Read the Gemini key from Streamlit secrets or environment."""
+    """Safely retrieve the Gemini API key."""
+
     try:
         key = st.secrets.get("GEMINI_API_KEY", "")
     except Exception:
         key = ""
 
-    return key or os.getenv("GEMINI_API_KEY", "")
+    if not key:
+        key = os.getenv("GEMINI_API_KEY", "")
+
+    return key.strip() if key else ""
 
 
 def generate_diet_plan(prompt):
-    """Generate a diet plan using Gemini Flash."""
 
     api_key = get_api_key()
 
     if not api_key:
         raise ValueError(
-            "Gemini API key is missing. Add GEMINI_API_KEY "
-            "to your Streamlit secrets or environment variables."
+            "Gemini API key is missing. "
+            "Please configure GEMINI_API_KEY in Streamlit Secrets."
         )
 
-    model = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
-
-    client = genai.Client(api_key=api_key)
-
-    response = client.models.generate_content(
-        model=model,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            temperature=0.4,
-            max_output_tokens=3000
-        )
+    model = os.getenv(
+        "GEMINI_MODEL",
+        "gemini-flash-latest"
     )
 
-    if not response.text:
-        raise RuntimeError(
-            "Gemini returned an empty response. Please try again."
+    try:
+        client = genai.Client(api_key=api_key)
+
+        response = client.models.generate_content(
+            model=model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.4,
+                max_output_tokens=3000
+            )
         )
 
-    return response.text
+        if not response.text:
+            raise RuntimeError(
+                "Gemini returned an empty response."
+            )
+
+        return response.text
+
+    except Exception as error:
+        error_message = str(error)
+
+        if "401" in error_message or "UNAUTHENTICATED" in error_message:
+            raise ValueError(
+                "Gemini authentication failed. "
+                "Check your Google AI Studio API key and "
+                "Streamlit Cloud Secrets."
+            ) from None
+
+        raise RuntimeError(
+            "Gemini API request failed. Please check "
+            "your model configuration and API availability."
+        ) from None
 
 
 # -----------------------------------------
