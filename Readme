@@ -1,3 +1,160 @@
+
+# 🥗 AI Diet Planner
+
+An AI-powered diet planning application built using
+Python, Streamlit, and Google's Gemini Flash model.
+
+The application generates personalized meal plans based
+on user profiles, fitness goals, dietary preferences,
+and general nutrition requirements.
+
+## 🚀 Features
+
+- Gym and fitness diet planning
+- Regular balanced diet planning
+- Healthcare nutrition education
+- Personalized meal recommendations
+- Vegetarian, vegan and non-vegetarian options
+- Pakistani and international cuisines
+- Estimated calories and macronutrients
+- Food allergy input
+- Different food budget options
+- Downloadable diet plans
+- Gemini Flash API integration
+
+## 🛠️ Technologies Used
+
+- Python
+- Streamlit
+- Google Gemini API
+- Google Gen AI Python SDK
+
+## 📁 Project Structure
+
+```text
+ai-diet-planner/
+│
+├── app.py
+├── README.md
+└── requirements.txt
+```
+
+## ⚙️ Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/ai-diet-planner.git
+```
+
+### 2. Navigate to the project
+
+```bash
+cd ai-diet-planner
+```
+
+### 3. Create a virtual environment
+
+Windows:
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+Linux / macOS:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## 🔑 Gemini API Configuration
+
+1. Visit Google AI Studio:
+
+   https://aistudio.google.com/app/apikey
+
+2. Create a Gemini API key.
+
+3. Create a folder named `.streamlit` in your project.
+
+4. Inside it, create `secrets.toml`.
+
+5. Add the following:
+
+```toml
+GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
+```
+
+Never upload your API key to GitHub.
+
+Add the following to `.gitignore`:
+
+```text
+.streamlit/secrets.toml
+.env
+venv/
+__pycache__/
+*.pyc
+```
+
+## ▶️ Run the Application
+
+Execute:
+
+```bash
+streamlit run app.py
+```
+
+The application will open in your browser.
+
+Default local address:
+
+http://localhost:8501
+
+## 🌐 Deployment
+
+This application can be deployed using Streamlit Community Cloud.
+
+1. Push the project to GitHub.
+2. Visit https://share.streamlit.io/
+3. Sign in with GitHub.
+4. Select your repository.
+5. Choose `app.py` as the main file.
+6. Open Advanced Settings.
+7. Add your Gemini API key under Secrets:
+
+```toml
+GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
+```
+
+8. Click Deploy.
+
+## ⚠️ Medical Disclaimer
+
+This application provides general nutrition education
+and AI-generated meal suggestions.
+
+It is not a substitute for a doctor, registered dietitian,
+medical diagnosis, or prescribed treatment.
+
+People with medical conditions should consult a qualified
+healthcare professional before following a diet plan.
+
+## 👨‍💻 Author
+
+Your Name
+
+## 📄 License
+
+MIT License
 # AI-Diet-Planner
 # 🥗 AI Diet Planner
 
